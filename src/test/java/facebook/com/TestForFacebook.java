@@ -32,12 +32,12 @@ public class TestForFacebook {
     public void loginToFacebook() {
         WebElement searchFieldEmail = driver.findElement(By.id("email"));
         searchFieldEmail.clear();
-        searchFieldEmail.sendKeys("greta-mart@i.ua");
+        searchFieldEmail.sendKeys("");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         WebElement searchFieldPassword = driver.findElement(By.id("pass"));
         searchFieldPassword.clear();
-        searchFieldPassword.sendKeys("Martinka33");
+        searchFieldPassword.sendKeys("");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         WebElement searchButton = driver.findElement(By.id("u_0_b"));
@@ -84,7 +84,7 @@ public class TestForFacebook {
         WebElement findFriend = driver.findElement(
                 By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div[1]/div/div/div/div[3]"));
         List<WebElement> list = driver.findElements(By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div[1]/div/div/div/div[3]/*"));
-        Assert.assertEquals(true, count == list.size() + 1);
+        Assert.assertEquals(true, count == list.size());
     }
 
     @AfterAll
