@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestForFacebook {
+public class TestForFacebookFirefox {
     WebDriver driver;
     Properties property = new Properties();
 
@@ -37,11 +37,11 @@ public class TestForFacebook {
 
         WebElement searchFieldPassword = driver.findElement(By.id("pass"));
         searchFieldPassword.clear();
-        searchFieldPassword.sendKeys("");
+        searchFieldPassword.sendKeys("3");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        WebElement searchButton = driver.findElement(By.id("u_0_b"));
-        searchButton.click();
+        WebElement searchButtonLogin = driver.findElement(By.id("u_0_b"));
+        searchButtonLogin.click();
         driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
 
         assertTrue(driver.getPageSource().contains("Messenger"));
@@ -49,6 +49,7 @@ public class TestForFacebook {
 
     @Test
     public void navigateToFriendList() {
+        loginToFacebook();
         WebElement searchFieldProfile = driver.findElement(By.xpath("//*[@id=\"mount_0_0\"]/div/div/div[1]/div[2]/div[4]/div[1]/div[4]/a"));
         searchFieldProfile.click();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -60,8 +61,8 @@ public class TestForFacebook {
         assertTrue((driver.getPageSource().contains("Поиск")));
     }
 
-    private void scroolToLastFriend() throws AWTException {
 
+    private void scroolToLastFriend() throws AWTException {
         Robot robot = new Robot();
         WebElement searchAnimation = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div/div/div/div/div[3]/div[10]/div"));
 
@@ -75,20 +76,14 @@ public class TestForFacebook {
     }
 
     @Test
-    public void useCountOfFriends() throws AWTException {
+    public void compareFriendsCount() throws AWTException {
+        loginToFacebook();
         scroolToLastFriend();
-        WebElement countOfFriends = driver.findElement(
+        WebElement friedsCountElement = driver.findElement(
                 By.xpath("//*[@id=\"mount_0_0\"]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[3]/div/div/div/div/div[1]/div/div/div[1]/div/div/div/div[1]/a[3]/div/span/span/div/div/span"));
-        String str = countOfFriends.getAttribute("innerHTML");
-        int count = Integer.parseInt(str);
-        WebElement findFriend = driver.findElement(
-                By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div[1]/div/div/div/div[3]"));
-        List<WebElement> list = driver.findElements(By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div[1]/div/div/div/div[3]/*"));
-        Assert.assertEquals(true, count == list.size());
-    }
-
-    @AfterAll
-    public void closeBrowser() {
-        driver.quit();
+        String friendsCountHtml = friedsCountElement.getAttribute("innerHTML");
+        int expectedFriendsCount = Integer.parseInt(friendsCountHtml);
+        List<WebElement> friendsElementsList = driver.findElements(By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div[1]/div/div/div/div[3]/*"));
+        Assert.assertEquals(true, expectedFriendsCount == friendsElementsList.size());
     }
 }
