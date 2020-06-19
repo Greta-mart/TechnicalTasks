@@ -37,11 +37,11 @@ public class TestForFacebookFirefox {
 
         WebElement searchFieldPassword = driver.findElement(By.id("pass"));
         searchFieldPassword.clear();
-        searchFieldPassword.sendKeys("3");
+        searchFieldPassword.sendKeys("");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        WebElement searchButtonLogin = driver.findElement(By.id("u_0_b"));
-        searchButtonLogin.click();
+        WebElement buttonLogin = driver.findElement(By.id("u_0_b"));
+        buttonLogin.click();
         driver.manage().timeouts().implicitlyWait(35, TimeUnit.SECONDS);
 
         assertTrue(driver.getPageSource().contains("Messenger"));
@@ -49,7 +49,6 @@ public class TestForFacebookFirefox {
 
     @Test
     public void navigateToFriendList() {
-        loginToFacebook();
         WebElement searchFieldProfile = driver.findElement(By.xpath("//*[@id=\"mount_0_0\"]/div/div/div[1]/div[2]/div[4]/div[1]/div[4]/a"));
         searchFieldProfile.click();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -76,14 +75,18 @@ public class TestForFacebookFirefox {
     }
 
     @Test
-    public void compareFriendsCount() throws AWTException {
-        loginToFacebook();
+    public void searchFriendsCount() throws AWTException {
         scroolToLastFriend();
         WebElement friedsCountElement = driver.findElement(
                 By.xpath("//*[@id=\"mount_0_0\"]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[3]/div/div/div/div/div[1]/div/div/div[1]/div/div/div/div[1]/a[3]/div/span/span/div/div/span"));
         String friendsCountHtml = friedsCountElement.getAttribute("innerHTML");
         int expectedFriendsCount = Integer.parseInt(friendsCountHtml);
         List<WebElement> friendsElementsList = driver.findElements(By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div[1]/div/div/div/div[3]/*"));
-        Assert.assertEquals(true, expectedFriendsCount == friendsElementsList.size());
+        Assert.assertEquals(true, expectedFriendsCount == friendsElementsList.size() + 1);
+    }
+
+    @AfterAll
+    public void closeBrowser() {
+        driver.quit();
     }
 }
