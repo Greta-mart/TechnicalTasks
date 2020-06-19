@@ -48,7 +48,7 @@ public class TestsForApiWeather {
                 assertThat().statusCode(401);
     }
     @Test
-    public void emptyParamsShouldReturnBadRequest(){
+    public void emptyParamsReturnNotAuthorized(){
         RestAssured.get("http://api.openweathermap.org/data/2.5/weather?q=&appid=").
                 then().
                 assertThat().statusCode(401);
