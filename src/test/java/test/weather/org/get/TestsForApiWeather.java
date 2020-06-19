@@ -4,7 +4,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-public class Tests {
+public class TestsForApiWeather {
     @Test
     public void validRequestTownShouldBeExpected(){
         RestAssured.get("http://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=d1a48f454cc591091a820997dbf20d58").
