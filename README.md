@@ -1,4 +1,6 @@
 # TechnicalTasks
+All this tests work only from studio.
+
 -Tests.java
 1. Given a website for weather forecast - https://openweathermap.org 
  
@@ -9,7 +11,7 @@ Your task is to verify if this endpoint works as expected.  It means, that you n
 TestForFacebook.java
 Please add login and passwod to this file
 
-2. Given a social network website - https://facebook.com 
+2. Given a social network website - https://facebook.com (tested new design of this site)
  
 The story:  Our brave Scrum team is implementing some additional functionality for our Caesars Casino game in Facebook.  In order to prepare to automate the game, you need to verify basic information about user's friends through Facebook UI. 
  
