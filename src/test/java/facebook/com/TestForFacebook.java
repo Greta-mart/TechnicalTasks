@@ -60,8 +60,7 @@ public class TestForFacebook {
         assertTrue((driver.getPageSource().contains("Поиск")));
     }
 
-    @Test
-    public void scroolToLastFriend() throws AWTException {
+    private void scroolToLastFriend() throws AWTException {
 
         Robot robot = new Robot();
         WebElement searchAnimation = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[4]/div/div/div/div/div/div[3]/div[10]/div"));
@@ -76,7 +75,8 @@ public class TestForFacebook {
     }
 
     @Test
-    public void useCountOfFriends() {
+    public void useCountOfFriends() throws AWTException {
+        scroolToLastFriend();
         WebElement countOfFriends = driver.findElement(
                 By.xpath("//*[@id=\"mount_0_0\"]/div/div/div[1]/div[3]/div/div/div[1]/div/div/div/div[3]/div/div/div/div/div[1]/div/div/div[1]/div/div/div/div[1]/a[3]/div/span/span/div/div/span"));
         String str = countOfFriends.getAttribute("innerHTML");
